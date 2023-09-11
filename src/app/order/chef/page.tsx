@@ -9,7 +9,7 @@ function OrderPageChef({ searchParams }: {
 
   return (
     <div className="flex w-full flex-col items-center gap-10">
-      <h1 className="mt-10 text-5xl"> Ongoin Orders 👨‍🍳</h1>
+      <h1 className="mt-10 text-3xl"> Ongoin Orders 👨‍🍳</h1>
       <Suspense fallback={Spinner()} key={`search_${searchParams.type}`}>
         <OrderListChef type={searchParams.type} />
       </Suspense>

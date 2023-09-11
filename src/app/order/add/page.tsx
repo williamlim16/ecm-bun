@@ -15,7 +15,7 @@ function OrderPage() {
 
   return (
     <div className="flex w-full flex-col items-center gap-10">
-      <h1 className="mt-10 text-5xl"> Place your order!</h1>
+      <h1 className="mt-10 text-3xl"> Place your order!</h1>
       <form className="form-control w-full max-w-xs gap-3" action={submitOrder}>
         <div>
           <label className="label">
