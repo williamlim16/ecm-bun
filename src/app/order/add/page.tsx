@@ -4,6 +4,8 @@ import { addOrder } from "../order"
 import Spinner from "@/app/(components)/Spinner"
 import MenuSelection from "../(components)/MenuSelection"
 import SubmitOrder from "../(components)/SubmitOrder"
+import { redirect } from "next/navigation"
+import Link from "next/link"
 
 function OrderPage() {
   async function submitOrder(data: FormData) {
@@ -11,6 +13,7 @@ function OrderPage() {
     await addOrder({
       name: data.get('name') as string,
     }, data.get('menu') as string)
+    redirect("/order")
   }
 
   return (
@@ -33,6 +36,7 @@ function OrderPage() {
           <textarea className="textarea textarea-bordered h-24 w-full" placeholder="Bio"></textarea>
         </div>
         <SubmitOrder />
+        <Link href="/order" className="btn btn-error" >Cancel</Link>
       </form>
     </div>
   )
