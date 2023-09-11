@@ -1,9 +1,25 @@
+import Link from "next/link"
 import { getAllOrders } from "../order"
 
-async function OrderListChef() {
-  const { orders } = await getAllOrders()
+async function OrderListChef({ type }: { type: string | undefined }) {
+  const { orders } = await getAllOrders({ type })
+  const types = ["ongoing", "completed"]
   return (
     <>
+      <div className="join">
+        {types.map((typePage) => {
+          return (
+            <>
+              <Link
+                key={`page_${typePage}`}
+                className={`btn join-item ${type === typePage ? "btn-active" : ""}`}
+                href={`/order/chef?type=${typePage}`}>
+                {typePage}
+              </Link>
+            </>
+          )
+        })}
+      </div>
       <div className="flex flex-col gap-3">
         {orders?.map((order) => (
           <>

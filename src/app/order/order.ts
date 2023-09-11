@@ -43,9 +43,20 @@ export async function getOrders ({page = 0}: {page: number }) {
   return {orders, countOngoingOrder}
 }
 
-export async function getAllOrders () {
+export async function getAllOrders ({type}: {type: string | undefined}) {
   await sleep(1000)
-  const orders =  await prisma.order.findMany({
+  let orders 
+  if ( type && type === "completed"){
+  orders =  await prisma.order.findMany({
+    include: {
+      menus: true
+    },
+    where: {
+      done: true
+    },
+  })
+  }else {
+  orders =  await prisma.order.findMany({
     include: {
       menus: true
     },
@@ -53,6 +64,7 @@ export async function getAllOrders () {
       done: false
     },
   })
+  }
   return {orders}
 }
 
