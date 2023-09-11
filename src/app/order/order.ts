@@ -20,7 +20,7 @@ export async function addOrder ({name}: FormOrder, menuId: string) {
   })
 }
 
-export async function getOrders () {
+export async function getOrders ({page = 0}: {page: number }) {
   await sleep(1000)
   const orders =  await prisma.order.findMany({
     include: {
@@ -28,8 +28,31 @@ export async function getOrders () {
     },
     where: {
       done: false
+    },
+    skip: 10*page,
+    take: 10
+  })
+  const countOngoingOrder = await prisma.order.count({
+    select:{
+      done: true
+    },
+    where: {
+      done: false
     }
   })
-  return orders
+  return {orders, countOngoingOrder}
+}
+
+export async function getAllOrders () {
+  await sleep(1000)
+  const orders =  await prisma.order.findMany({
+    include: {
+      menus: true
+    },
+    where: {
+      done: false
+    },
+  })
+  return {orders}
 }
 

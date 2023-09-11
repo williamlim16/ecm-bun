@@ -1,7 +1,7 @@
-import { getOrders } from "../order"
+import { getAllOrders } from "../order"
 
 async function OrderListChef() {
-  const orders = await getOrders()
+  const { orders } = await getAllOrders()
   return (
     <>
       <div className="flex flex-col gap-3">
