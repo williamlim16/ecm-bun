@@ -80,3 +80,12 @@ export async function completeOrder ({id}: {id: string}) {
 })
 }
 
+
+export async function deleteOrder ({id}: {id: string}) {
+  await sleep(1000)
+  await prisma.order.delete({
+  where: {
+    id
+  },
+})
+}

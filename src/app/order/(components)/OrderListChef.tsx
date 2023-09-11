@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { completeOrder, getAllOrders } from "../order"
+import { completeOrder, deleteOrder, getAllOrders } from "../order"
 import CompleteOrder from "./CompleteOrder"
 import { revalidatePath } from "next/cache"
 import DeleteOrder from "./DeleteOrder"
@@ -15,10 +15,10 @@ async function OrderListChef({ type }: { type: string | undefined }) {
     revalidatePath("/")
   }
 
-  async function deleteOrder(data: FormData) {
+  async function submitDelete(data: FormData) {
     "use server"
     if (data && data.get('id')) {
-      await completeOrder({ id: data.get('id') as string })
+      await deleteOrder({ id: data.get('id') as string })
     }
     revalidatePath("/")
   }
@@ -46,7 +46,7 @@ async function OrderListChef({ type }: { type: string | undefined }) {
               <div className="card-body">
                 <h2 className="card-title">{order.name}</h2>
                 <p>{order.menus[0]?.name}</p>
-                <form className="card-actions justify-end" action={submitComplete}>
+                <form className="card-actions justify-end" action={type === "ongoing" ? submitComplete : submitDelete}>
                   <input type="hidden" name="id" value={order.id} />
                   {type === "ongoing" ?
                     <CompleteOrder /> :
