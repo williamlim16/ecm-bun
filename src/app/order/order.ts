@@ -68,3 +68,15 @@ export async function getAllOrders ({type}: {type: string | undefined}) {
   return {orders}
 }
 
+export async function completeOrder ({id}: {id: string}) {
+  await sleep(1000)
+  await prisma.order.update({
+  where: {
+    id
+  },
+  data: {
+    done: true
+  },
+})
+}
+
