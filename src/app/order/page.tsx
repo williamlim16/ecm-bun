@@ -1,13 +1,17 @@
 import { Suspense } from "react"
 import Spinner from "../(components)/Spinner"
 import OrderList from "./(components)/OrderList"
+import Link from "next/link"
 
 function OrderPage({ searchParams }: {
   searchParams: { [key: string]: number | string | string[] | undefined }
 }) {
   return (
     <div className="flex w-full flex-col items-center gap-5">
-      <h1 className="mt-10 text-5xl"> Ongoin Orders 🍔</h1>
+      <div className="mt-10 flex flex-col items-center gap-3">
+        <h1 className="text-3xl"> Ongoin Orders 🍔</h1>
+        <Link href="/order/add" className="btn btn-primary w-full">Add</Link>
+      </div>
       <Suspense fallback={Spinner()} key={`search_${searchParams.page}`}>
         <OrderList page={searchParams.page as number} />
       </Suspense>
